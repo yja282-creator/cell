@@ -111,7 +111,7 @@ select { background: #fff; border: 1px solid #bcdde8; border-radius: 10px; font-
 input[type=range] { width: 100%; accent-color: #00898f; height: 8px; display: block; }
 .inspector { padding: 28px; background: #fff; border-left: 1px solid #cce6ed; }
 .inspector-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.inspector-heading .eyebrow { font-size: 11px; letter-spacing: .8px; margin: 0; }
+.inspector-heading .eyebrow { font-size: 11px; letter-spacing: .8px; margin: 0; color: #d62828; }
 .badge { font-size: 14px; border-radius: 9px; background: #dcf8ee; color: #006e67; padding: 6px 10px; white-space: nowrap; }
 .stage-kicker { font-size: 14px; letter-spacing: 1.5px; color: #627bad; margin: 27px 0 8px; }
 h2 { margin: 0; }
