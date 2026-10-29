@@ -65,3 +65,9 @@ python3 tests/browser_smoke.py
 - `tests/`: 모델 테스트와 브라우저 검증
 
 별도 빌드 과정이나 비밀키는 필요 없습니다.
+
+## 화면 스타일과 글꼴
+
+밝은 하늘색·민트·노랑 계열의 화면과 큰 한글 본문을 사용합니다. 둥근 한글 서체인 **Jua(주아체)**를 로컬 파일로 포함하므로 외부 글꼴 서버에 연결하지 않아도 됩니다. Google Fonts의 [Jua 원본](https://github.com/google/fonts/tree/main/ofl/jua)에서 가져왔으며 SIL Open Font License 1.1을 따릅니다. 라이선스는 `assets/fonts/OFL.txt`에 포함되어 있습니다.
+
+헤더에 서울 광남고등학교 이름과 `assets/gwangnam-class-logo.svg`를 표시합니다. 로고는 요청에 따라 민트색 마름모 안에 ‘광남고’를 넣어 제작한 수업용 디자인이며, 공식 교표가 아닙니다. 로고 글씨는 주아체 윤곽선으로 포함해 글꼴 설치 여부와 무관하게 동일하게 표시됩니다.

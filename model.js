@@ -24,10 +24,10 @@ export const stages = {
  ]
 };
 export const chromosomes = [
- {id:0,color:'#6b9fcb',other:'#e6997f',length:40,homolog:1},
- {id:1,color:'#e6997f',other:'#6b9fcb',length:40,homolog:0},
- {id:2,color:'#6b9fcb',other:'#e6997f',length:28,homolog:3},
- {id:3,color:'#e6997f',other:'#6b9fcb',length:28,homolog:2}
+ {id:0,color:'#3986eb',other:'#f47486',length:40,homolog:1},
+ {id:1,color:'#f47486',other:'#3986eb',length:40,homolog:0},
+ {id:2,color:'#3986eb',other:'#f47486',length:28,homolog:3},
+ {id:3,color:'#f47486',other:'#3986eb',length:28,homolog:2}
 ];
 // Opposite parental orientation in the second homolog pair illustrates assortment.
 export const firstDivisionGroups = [[0,3],[1,2]];

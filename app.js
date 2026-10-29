@@ -11,16 +11,16 @@ const el=(tag,attrs={},children='')=>`<${tag} ${Object.entries(attrs).map(([k,v]
 const line=(x1,y1,x2,y2,attrs={})=>el('line',{x1,y1,x2,y2,...attrs});
 const ellipse=(cx,cy,rx,ry,attrs={})=>el('ellipse',{cx,cy,rx,ry,...attrs});
 const text=(x,y,value,attrs={})=>el('text',{x,y,class:'svg-label',...attrs},value);
-function nucleus(cx,cy,rx,ry,opacity=1){return ellipse(cx,cy,rx,ry,{fill:'#f8faf3','fill-opacity':.52,stroke:'#a4b68e','stroke-width':1.8,'stroke-dasharray':'6 5',opacity});}
+function nucleus(cx,cy,rx,ry,opacity=1){return ellipse(cx,cy,rx,ry,{fill:'#ffffff','fill-opacity':.52,stroke:'#6ebbbb','stroke-width':1.8,'stroke-dasharray':'6 5',opacity});}
 function membrane(cx,cy,rx,ry,pinch=0){
  const waist=ry*(1-pinch*.86);
- return el('path',{'data-structure':'membrane',d:`M ${cx} ${cy-ry+pinch*ry*.86} C ${cx-rx*.48} ${cy-ry}, ${cx-rx} ${cy-ry}, ${cx-rx} ${cy} C ${cx-rx} ${cy+ry}, ${cx-rx*.48} ${cy+ry}, ${cx} ${cy+waist} C ${cx+rx*.48} ${cy+ry}, ${cx+rx} ${cy+ry}, ${cx+rx} ${cy} C ${cx+rx} ${cy-ry}, ${cx+rx*.48} ${cy-ry}, ${cx} ${cy-waist} Z`,fill:'url(#cell-fill)',stroke:'#a7ba92','stroke-width':2.2});
+ return el('path',{'data-structure':'membrane',d:`M ${cx} ${cy-ry+pinch*ry*.86} C ${cx-rx*.48} ${cy-ry}, ${cx-rx} ${cy-ry}, ${cx-rx} ${cy} C ${cx-rx} ${cy+ry}, ${cx-rx*.48} ${cy+ry}, ${cx} ${cy+waist} C ${cx+rx*.48} ${cy+ry}, ${cx+rx} ${cy+ry}, ${cx+rx} ${cy} C ${cx+rx} ${cy-ry}, ${cx+rx*.48} ${cy-ry}, ${cx} ${cy-waist} Z`,fill:'url(#cell-fill)',stroke:'#41b5ac','stroke-width':2.2});
 }
 function pole(x,y,opacity=1){
- let rays='';for(let a=0;a<12;a++){const t=a*Math.PI/6;rays+=line(x+Math.cos(t)*9,y+Math.sin(t)*9,x+Math.cos(t)*19,y+Math.sin(t)*19,{stroke:'#b7bf86','stroke-width':1.1});}
- return el('g',{opacity},rays+el('rect',{x:x-7,y:y-4,width:14,height:8,rx:2,fill:'#a0a970',transform:`rotate(35 ${x} ${y})`})+el('rect',{x:x-3,y:y-9,width:6,height:14,rx:2,fill:'#c0c698',transform:`rotate(35 ${x} ${y})`}));
+ let rays='';for(let a=0;a<12;a++){const t=a*Math.PI/6;rays+=line(x+Math.cos(t)*9,y+Math.sin(t)*9,x+Math.cos(t)*19,y+Math.sin(t)*19,{stroke:'#f3b84c','stroke-width':1.1});}
+ return el('g',{opacity},rays+el('rect',{x:x-7,y:y-4,width:14,height:8,rx:2,fill:'#ef9e2e',transform:`rotate(35 ${x} ${y})`})+el('rect',{x:x-3,y:y-9,width:6,height:14,rx:2,fill:'#ffd576',transform:`rotate(35 ${x} ${y})`}));
 }
-function fiber(px,py,x,y,opacity=1){return el('path',{'data-structure':'spindle',d:`M ${px} ${py} Q ${(px+x)/2} ${y+(py-y)*.25} ${x} ${y}`,stroke:'#9db783','stroke-width':1.35,fill:'none',opacity:opacity*.75});}
+function fiber(px,py,x,y,opacity=1){return el('path',{'data-structure':'spindle',d:`M ${px} ${py} Q ${(px+x)/2} ${y+(py-y)*.25} ${x} ${y}`,stroke:'#14a98a','stroke-width':1.35,fill:'none',opacity:opacity*.75});}
 function chromatid(c,x,y,sister=0,scale=1,exchange=false,decondense=0,separated=false){
  const len=c.length*scale,w=13*scale,sign=(sister===0?-1:1)*(separated?-1:1);
  const kink=decondense*9;
@@ -33,7 +33,7 @@ function chromatid(c,x,y,sister=0,scale=1,exchange=false,decondense=0,separated=
  return shape;
 }
 function chromosome(c,x,y,duplicated=true,scale=1,exchange=false,decondense=0,sister=0){
- return el('g',{'data-structure':'chromosome','data-id':c.id,'data-duplicated':String(duplicated)},(duplicated?chromatid(c,x,y,0,scale,exchange,decondense)+chromatid(c,x,y,1,scale,exchange,decondense):chromatid(c,x,y,sister,scale,exchange,decondense,true))+ellipse(x,y,3.8*scale,4*scale,{fill:'#52634f',stroke:'#f4f5eb','stroke-width':1}));
+ return el('g',{'data-structure':'chromosome','data-id':c.id,'data-duplicated':String(duplicated)},(duplicated?chromatid(c,x,y,0,scale,exchange,decondense)+chromatid(c,x,y,1,scale,exchange,decondense):chromatid(c,x,y,sister,scale,exchange,decondense,true))+ellipse(x,y,3.8*scale,4*scale,{fill:'#384768',stroke:'#ffffff','stroke-width':1}));
 }
 function chromatin(c,x,y,scale=1,duplicated=false,exchange=false,sister=0){
  // Loosely coiled chromatin, with a second strand after DNA replication.
@@ -47,7 +47,7 @@ function chromatin(c,x,y,scale=1,duplicated=false,exchange=false,sister=0){
 }
 function label(x,y,toX,toY,value,anchor='start'){
  if(!labels)return '';
- return el('g',{class:'structure-label'},el('path',{d:`M ${x} ${y-5} L ${toX} ${toY}`,fill:'none',stroke:'#9dad8c','stroke-width':1})+text(x+(anchor==='end'?-6:6),y-9,value,{'text-anchor':anchor}));
+ return el('g',{class:'structure-label'},el('path',{d:`M ${x} ${y-5} L ${toX} ${toY}`,fill:'none',stroke:'#5994b0','stroke-width':1})+text(x+(anchor==='end'?-6:6),y-9,value,{'text-anchor':anchor}));
 }
 function interphase(p){
  let out=membrane(480,245,320,185)+nucleus(480,245,150,135);
@@ -70,11 +70,11 @@ function activeCell(cx,cy,rx,ry,ids,id,p,second=false,groupIndex=0){
  const exchange=mode==='meiosis'&&crossover&&(!pro||second||p>.5);
  let out=membrane(cx,cy,rx,ry,telo?.66*ease(p):0),fibers='',objects='';
  if(pro)out+=nucleus(cx,cy,rx*.51,ry*.74,1-clamp((p-.45)/.4));
- if(meta)out+=line(cx,cy-ry*.84,cx,cy+ry*.84,{stroke:'#a9b990','stroke-dasharray':'4 6','stroke-width':1,opacity:.45});
+ if(meta)out+=line(cx,cy-ry*.84,cx,cy+ry*.84,{stroke:'#78a9c4','stroke-dasharray':'4 6','stroke-width':1,opacity:.45});
  const opacity=telo?1-p:pro?clamp((p-.2)/.8):1;
  if(spindle){
   out+=pole(poleLeft,poleY,Math.max(.1,opacity))+pole(poleRight,cy+(cy-poleY),Math.max(.1,opacity));
-  if(!pro || p>.35){for(const sy of [-1,1])fibers+=el('path',{d:`M ${poleLeft} ${poleY} Q ${cx} ${cy+sy*ry*.72} ${poleRight} ${cy+(cy-poleY)}`,fill:'none',stroke:'#bbca9e','stroke-width':1,opacity:opacity*.55});}
+  if(!pro || p>.35){for(const sy of [-1,1])fibers+=el('path',{d:`M ${poleLeft} ${poleY} Q ${cx} ${cy+sy*ry*.72} ${poleRight} ${cy+(cy-poleY)}`,fill:'none',stroke:'#5ac9b5','stroke-width':1,opacity:opacity*.55});}
  }
  if(first){
   for(const c of chromosomes){
@@ -88,7 +88,7 @@ function activeCell(cx,cy,rx,ry,ids,id,p,second=false,groupIndex=0){
   }
   if((meta||(pro&&p>.7))&&crossover){
    const y=cy-52+25;
-   objects+=el('path',{'data-structure':'chiasma',d:`M ${cx-11} ${y-8} L ${cx+11} ${y+8} M ${cx+11} ${y-8} L ${cx-11} ${y+8}`,stroke:'#8d9d78','stroke-width':2,fill:'none'});
+   objects+=el('path',{'data-structure':'chiasma',d:`M ${cx-11} ${y-8} L ${cx+11} ${y+8} M ${cx+11} ${y-8} L ${cx-11} ${y+8}`,stroke:'#b57ac8','stroke-width':2,fill:'none'});
    if(labels)objects+=label(cx+90,cy-4,cx, y,'키아스마 · 교차 지점');
   }
   if(pro&&p>.45&&p<.9&&crossover)objects+=text(cx,cy-113,'상동 염색체 접합',{'text-anchor':'middle','font-size':12});
@@ -160,7 +160,7 @@ function render(){
  else if(stage.id.startsWith('cyto'))content=cytokinesis(stage.id,p);
  else if(second)firstDivisionGroups.forEach((ids,g)=>{content+=activeCell(g===0?250:710,245,200,176,ids,stage.id,p,true,g);});
  else content=activeCell(480,245,335,188,[0,1,2,3],stage.id,p);
- svg.innerHTML=`<title id="scene-title">${mode==='mitosis'?'체세포분열':'감수분열'} · ${stage.name}</title><desc id="scene-description">${stage.chromosome} ${stage.spindle}</desc><defs><radialGradient id="cell-fill"><stop offset="0" stop-color="#f9fbf2" stop-opacity=".85"/><stop offset="1" stop-color="#e6edd9" stop-opacity=".7"/></radialGradient></defs>${content}`;
+ svg.innerHTML=`<title id="scene-title">${mode==='mitosis'?'체세포분열':'감수분열'} · ${stage.name}</title><desc id="scene-description">${stage.chromosome} ${stage.spindle}</desc><defs><radialGradient id="cell-fill"><stop offset="0" stop-color="#f5ffff" stop-opacity=".85"/><stop offset="1" stop-color="#c7f4ee" stop-opacity=".7"/></radialGradient></defs>${content}`;
  $('#progress').value=Math.round(p*100);$('#progress-label').textContent=`${Math.round(p*100)}%`;
 }
 function updateInfo(){
